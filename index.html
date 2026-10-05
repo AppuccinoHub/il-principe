@@ -36,6 +36,7 @@ html { color-scheme: light; }
   --turq: #1fd6dc;
   --turq-ink: #04303a;
   --pink: #d9007a;
+  --pink-text: #d9007a;
   --pink-ink: #ffffff;
   --band: #1b3fb5;
   --band-ink: #f2f6ff;
@@ -47,22 +48,23 @@ html { color-scheme: light; }
   --gold-1: #fff0a8;
   --gold-2: #f2b705;
   --gold-3: #b9820a;
+  --hl: #c43a30; --hl-tint: #ffeceb; --hl-lb: #c43a30; --hl-lt: #ffffff;
   --font-display: "Cinzel Decorative", "Cinzel", Georgia, serif;
   --font-body: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #070f26; --bg-2: #0b1a3d; --card: #10224a; --card-edge: #25418a;
-    --ink: #e8f0ff; --muted: #a9bdf0; --teal: #43d3db; --pink: #f0168c;
+    --ink: #e8f0ff; --muted: #a9bdf0; --teal: #43d3db; --pink: #d4006f; --pink-text: #ff6fb5;
     --band: #11275f; --tile-ink: #11275f; --chip-ink: #0a1a3f;
-    --warn: #3a2f0a; --warn-ink: #ffe9a3; color-scheme: dark;
+    --warn: #3a2f0a; --warn-ink: #ffe9a3; --hl: #ff8a7d; --hl-tint: #3b1a28; --hl-lb: #ff8a7d; --hl-lt: #2a0d0d; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #070f26; --bg-2: #0b1a3d; --card: #10224a; --card-edge: #25418a;
-  --ink: #e8f0ff; --muted: #a9bdf0; --teal: #43d3db; --pink: #f0168c;
+  --ink: #e8f0ff; --muted: #a9bdf0; --teal: #43d3db; --pink: #d4006f; --pink-text: #ff6fb5;
   --band: #11275f; --tile-ink: #11275f; --chip-ink: #0a1a3f;
-  --warn: #3a2f0a; --warn-ink: #ffe9a3; color-scheme: dark;
+  --warn: #3a2f0a; --warn-ink: #ffe9a3; --hl: #ff8a7d; --hl-tint: #3b1a28; --hl-lb: #ff8a7d; --hl-lt: #2a0d0d; color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -107,7 +109,7 @@ a { color: inherit; }
 .theme-btn {
   position: absolute; top: 9px; right: 10px; z-index: 6;
   min-height: 32px; padding: 4px 12px; border-radius: 999px;
-  font: inherit; font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+  font: inherit; font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
   background: rgba(255, 255, 255, .16); color: #ffffff;
   border: 1.5px solid rgba(255, 240, 168, .75); cursor: pointer;
 }
@@ -122,7 +124,7 @@ a { color: inherit; }
 .crown { position: absolute; top: -33px; left: 41%; transform: translateX(-50%) rotate(-9deg); width: 66px; height: 45px; filter: drop-shadow(0 2px 2px rgba(0,0,0,.35)); }
 .photo {
   position: relative; margin-top: 36px;
-  width: min(140px, 19svh); aspect-ratio: 1; border-radius: 50%; flex: none;
+  width: min(132px, 17svh); aspect-ratio: 1; border-radius: 50%; flex: none;
   padding: 4px; margin-bottom: 14px;
   background: conic-gradient(from 210deg, var(--gold-1), var(--gold-2), var(--gold-3), var(--gold-1), var(--gold-2), var(--gold-1));
 }
@@ -143,14 +145,15 @@ a { color: inherit; }
 .quote .it { font-style: italic; font-weight: 700; font-size: .84rem; line-height: 1.3; color: var(--gold-1); }
 .quote .en { font-size: .76rem; color: var(--band-ink); opacity: .9; margin-top: 2px; }
 .quote .en span { opacity: .85; white-space: nowrap; }
-.quote .mine { margin-top: 6px; font-size: .88rem; font-weight: 800; color: var(--band-ink); }
+.quote .mine { margin-top: 6px; font-size: .86rem; font-weight: 800; line-height: 1.25; color: var(--band-ink); }
+.quote .by { margin: 1px 0 0; font-size: .75rem; font-style: italic; color: var(--band-ink); opacity: .8; }
 .tag { margin: 0; font-family: var(--font-body); font-weight: 700; font-style: italic; font-size: .78rem; color: var(--band-ink); text-align: center; }
 .alias { font-family: var(--font-display); font-weight: 700; font-size: .95rem; letter-spacing: .08em; color: var(--gold-1); margin: 0; }
 .eyebrow { margin: 8px 0 0; font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 800; color: var(--band-ink); opacity: .9; }
 .clock { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; width: 100%; max-width: 340px; }
 .tile { background: var(--tile); color: var(--tile-ink); border-radius: 16px; padding: 10px 4px 8px; box-shadow: 0 3px 0 var(--gold-2); }
 .tile strong { display: block; font-size: clamp(1.4rem, 6.6vw, 2rem); line-height: 1; font-weight: 800; font-variant-numeric: tabular-nums; }
-.tile span { display: block; margin-top: 4px; font-size: .7rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--chip-ink); }
+.tile span { display: block; margin-top: 4px; font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--chip-ink); }
 .eyebrow.big { font-size: 1.05rem; letter-spacing: .1em; opacity: 1; color: var(--gold-1); text-shadow: 0 0 14px rgba(31, 214, 220, .85); animation: glow 2.4s ease-in-out infinite; }
 .when { margin: 0; font-size: .85rem; color: var(--band-ink); opacity: .92; }
 .dates { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 2px; }
@@ -160,8 +163,9 @@ a { color: inherit; }
 
 @media (max-height: 720px) {
   .page-home { gap: 3px; padding-top: 4px; padding-bottom: 8px; }
-  .photo { width: min(104px,15svh); margin-top: 24px; margin-bottom: 4px; }
-  .quote .mine { margin-top: 3px; font-size: .8rem; }
+  .photo { width: min(98px,14.5svh); margin-top: 21px; margin-bottom: 4px; }
+  .quote .mine { margin-top: 2px; font-size: .76rem; line-height: 1.2; }
+  .quote .by { font-size: .75rem; margin-top: 0; line-height: 1.1; }
   .quote .en { margin-top: 0; font-size: .7rem; }
   .hint { display: none; }
   .eyebrow { margin-top: 2px; }
@@ -197,17 +201,17 @@ a { color: inherit; }
 
 /* Decrees */
 .decree { background: var(--card); border: 1px solid var(--card-edge); border-left: 6px solid var(--gold-2); border-radius: 14px; padding: 12px 14px; }
-.decree .tag { margin: 0 0 2px; font-size: .7rem; font-weight: 800; letter-spacing: .16em; color: var(--pink); }
+.decree .tag { margin: 0 0 2px; font-size: .75rem; font-weight: 800; letter-spacing: .16em; color: var(--pink-text); }
 .decree h3 { margin: 0 0 3px; font-size: 1.05rem; font-weight: 800; line-height: 1.25; }
 .decree p { margin: 0; color: var(--muted); font-size: .93rem; }
-.decree p.tag { color: var(--pink); }
+.decree p.tag { color: var(--pink-text); }
 
 /* Court */
 .court { display: grid; gap: 12px; min-width: 0; }
 .pills { display: flex; flex-wrap: wrap; gap: 8px; }
 .pill {
   font: inherit; font-weight: 800; font-size: .9rem; cursor: pointer;
-  min-height: 40px; padding: 6px 14px; border-radius: 999px;
+  min-height: 44px; padding: 6px 14px; border-radius: 999px;
   background: var(--card); color: var(--ink); border: 2px solid var(--card-edge);
 }
 .pill[aria-pressed="true"] { background: var(--band); color: var(--band-ink); border-color: var(--gold-2); }
@@ -239,7 +243,7 @@ a { color: inherit; }
 /* Learn and Shop links */
 .lcard { display: grid; gap: 2px; text-decoration: none; background: var(--card); border: 1px solid var(--card-edge); border-radius: 14px; padding: 12px 14px; min-height: 44px; }
 .lcard b { font-size: 1.02rem; font-weight: 800; }
-.lcard .src { font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--pink); }
+.lcard .src { font-size: .75rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--pink-text); }
 .lcard span.why { color: var(--muted); font-size: .92rem; }
 .lcard .go { margin-top: 4px; font-size: .85rem; font-weight: 800; color: var(--teal); }
 .academy { background: var(--card); border: 3px solid var(--gold-2); border-radius: 18px; padding: 12px 14px; display: grid; gap: 8px; }
@@ -262,7 +266,7 @@ textarea, input[type="text"], input[type="tel"] {
 .mom textarea { min-height: 110px; resize: vertical; }
 textarea:focus-visible, input:focus-visible { outline: 3px solid var(--turq); outline-offset: 2px; }
 .row { display: flex; flex-wrap: wrap; gap: 8px; }
-.code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .74rem; word-break: break-all; color: var(--muted); background: var(--bg); border-radius: 10px; padding: 8px 10px; min-height: 2.2em; max-height: 4.6em; overflow: auto; }
+.code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .75rem; word-break: break-all; color: var(--muted); background: var(--bg); border-radius: 10px; padding: 8px 10px; min-height: 2.2em; max-height: 4.6em; overflow: auto; }
 .status { margin: 0; font-size: .85rem; color: var(--teal); font-weight: 700; min-height: 1.2em; }
 .loadbox { display: grid; gap: 8px; }
 
@@ -280,7 +284,7 @@ textarea:focus-visible, input:focus-visible { outline: 3px solid var(--turq); ou
 .chk[aria-pressed="true"]::after { content: "\2713"; position: absolute; color: #ffffff; font-weight: 800; font-size: 1rem; line-height: 1; }
 .chk { position: relative; }
 .chk[disabled] { opacity: .35; cursor: default; }
-.xbtn { width: auto; min-width: 44px; padding: 0 8px; font-size: .78rem; font-weight: 800; color: var(--pink); }
+.xbtn { width: auto; min-width: 44px; padding: 0 8px; font-size: .78rem; font-weight: 800; color: var(--pink-text); }
 .counts { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; font-size: .9rem; font-weight: 800; }
 .counts .when2 { color: var(--muted); font-weight: 700; }
 .bar { height: 8px; border-radius: 999px; background: var(--card-edge); overflow: hidden; }
@@ -289,7 +293,7 @@ textarea:focus-visible, input:focus-visible { outline: 3px solid var(--turq); ou
 .wish { background: var(--card); border: 3px solid var(--gold-2); border-radius: 18px; padding: 14px; display: grid; gap: 8px; }
 .wish h3 { margin: 0; font-family: var(--font-display); font-size: 1.1rem; }
 .wish ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; font-size: .95rem; }
-.wish .sig { margin: 0; font-weight: 800; color: var(--pink); }
+.wish .sig { margin: 0; font-weight: 800; color: var(--pink-text); }
 .callbox { background: var(--warn); color: var(--warn-ink); border-radius: 16px; padding: 12px 14px; display: grid; gap: 6px; }
 .callbox h3 { margin: 0; font-size: 1rem; font-weight: 800; }
 .callbox ul { margin: 0; padding-left: 1.2em; font-size: .93rem; display: grid; gap: 3px; }
@@ -345,6 +349,16 @@ textarea:focus-visible, input:focus-visible { outline: 3px solid var(--turq); ou
   .name { background-position: 40% 50%; }
 }
 
+/* MUST KNOW highlights (coral, the one hue nothing else in the app uses) */
+.mk { display: inline-block; background: var(--hl-lb); color: var(--hl-lt); font-size: .75rem; font-weight: 800; letter-spacing: .1em; padding: 2px 9px; border-radius: 999px; margin-bottom: 5px; }
+.rule.hi { background: var(--hl-tint); border-color: var(--hl); border-left: 7px solid var(--hl); }
+.rule.hi p { color: var(--ink); }
+.must { background: var(--hl-tint); border: 1px solid var(--hl); border-left: 7px solid var(--hl); border-radius: 14px; padding: 10px 14px 12px; margin-bottom: 12px; }
+.must ul { margin: 2px 0 8px; padding-left: 1.1rem; }
+.must li { font-weight: 800; font-size: 1.02rem; line-height: 1.3; color: var(--ink); padding: 1px 0; }
+.mustbtn { width: 100%; font: inherit; font-weight: 800; font-size: .95rem; color: var(--hl-lt); background: var(--hl-lb); border: 0; border-radius: 12px; padding: 13px 12px; min-height: 44px; cursor: pointer; }
+@media print { .must { display: none; } }
+
 </style>
 </head>
 <body>
@@ -364,7 +378,7 @@ textarea:focus-visible, input:focus-visible { outline: 3px solid var(--turq); ou
         <p class="aka">Nicolò Machiavelli</p>
         <p class="alias">il Principe</p>
         <p class="tag">Political mastermind, professional lap dog.</p>
-        <blockquote class="quote"><p class="it">"A prince should care little about conspiracies when the people are well disposed toward him."</p><p class="en"><span>Il Principe, cap. XIX</span></p><p class="mine">Nico's version: everyone here belongs to me now.</p></blockquote>
+        <blockquote class="quote"><p class="it">"A prince should care little about conspiracies when the people are well disposed toward him."</p><p class="en"><span>Il Principe, cap. XIX</span></p><p class="mine" data-phrase></p><p class="by">— Nicolò Machiavelli, probably</p></blockquote>
         <p class="eyebrow" data-eyebrow>Coming home in</p>
         <div class="clock" role="timer" aria-label="Countdown to gotcha day">
           <div class="tile"><strong data-d>12</strong><span>Days</span></div>
@@ -381,19 +395,29 @@ textarea:focus-visible, input:focus-visible { outline: 3px solid var(--turq); ou
         <p class="hint">Tap Next or swipe to enter the kingdom.</p>
       </section>
 
+      <section class="page" data-page="The Court" hidden>
+        <header class="phead"><h2>The Royal Court</h2><p>Il Principe belongs to the whole court. Tap a job to cross it off if it doesn't work for you. Tap again to bring it back.</p></header>
+        <div class="pbody">
+          <div class="must" role="note"><span class="mk">MUST KNOW</span>
+            <ul><li>Gates closed. Always.</li><li>Carry him outside. No walks yet.</li><li>No other dogs until the vet says.</li><li>Never feed him people food.</li></ul>
+            <button type="button" class="mustbtn" data-gohelp>Something wrong? Tap for help</button>
+          </div>
+          <div class="court" data-court></div></div>
+      </section>
+
       <section class="page" data-page="House Rules" hidden>
         <header class="phead"><h2>House Rules</h2><p>Read these before touching il Principe.</p></header>
         <div class="pbody">
           <div class="banner" role="note">
             <h3>Tongues stay home</h3>
-            <p>Il Principe's tongue is for his food. Pietro's tongue is for pizza. <strong class="key">So Pietro, don't lick il Principe, and il Principe, don't lick Pietro's face.</strong> Same rules for la Principessa Gracie Petunia Peach. Wash hands after every cuddle.</p>
+            <p><strong class="key">Pietro: no licking il Principe. Il Principe: no licking Pietro.</strong> Wash hands after every cuddle.</p>
           </div>
-          <div class="rule"><h3>The royal bubble</h3><p>No dog parks. No pet-store floors. No surprise dog visitors. Il Principe's bubble stays closed until Dr. Cataldi says he is fully vaccinated. One VIP exception: la Principessa Gracie Petunia Peach, a very exclusive club of one. Fully vaccinated, too fancy for daycare, and mostly avoids other dogs. Her royal visit starts after her vet checkup.</p></div>
-          <div class="rule"><h3>Harness on, every time</h3><p>No leash without a harness. Il Principe has standards.</p></div>
-          <div class="rule"><h3>Carry him outside</h3><p>Yard potty trips only until the vet clears walks.</p></div>
-          <div class="rule"><h3>Gates stay closed</h3><p>Top and bottom of the stairs, every time. Carry him on stairs until Dr. Cataldi says he's ready.</p></div>
-          <div class="rule"><h3>Floor patrol</h3><p>Small stuff up off the floor: socks, squishies, little toys. Puppies eat everything for about 8 months.</p></div>
-          <div class="rule"><h3>Paws and water</h3><p>Wipe his paws after every trip outside. Fresh water in two bowls, in two spots.</p></div>
+          <div class="rule hi"><span class="mk">MUST KNOW</span><h3>The royal bubble</h3><p>No dog parks, pet stores or other dogs until the vet says. Only exception: Gracie, after her checkup.</p></div>
+          <div class="rule"><h3>Harness on, every time</h3><p>No leash without a harness.</p></div>
+          <div class="rule hi"><span class="mk">MUST KNOW</span><h3>Carry him outside</h3><p>Yard only. Carry him. No walks yet.</p></div>
+          <div class="rule hi"><span class="mk">MUST KNOW</span><h3>Gates stay closed</h3><p>Top and bottom of the stairs, every time. Carry him on stairs.</p></div>
+          <div class="rule"><h3>Floor patrol</h3><p>Socks, squishies, little toys: off the floor.</p></div>
+          <div class="rule"><h3>Paws and water</h3><p>Wipe paws after outside. Fresh water in two spots.</p></div>
           <div class="rule"><h3>Teething is serious</h3><p>He will chew tile and wall corners. Hand him a chew toy. Not your finger.</p></div>
         </div>
       </section>
@@ -411,11 +435,6 @@ textarea:focus-visible, input:focus-visible { outline: 3px solid var(--turq); ou
           <article class="decree"><p class="tag">DECREE VIII</p><h3>The ends justify the means.</h3><p>The end: a treat. The means: that look. Resistance is useless.</p></article>
           <article class="decree"><p class="tag">DECREE IX</p><h3>Il Principe need not fear a plot.</h3><p>"A prince should care little about conspiracies when the people are well disposed toward him." Il Principe, cap. XIX</p><p>Translation for Nico: nobody is plotting against you. Everyone loves you.</p></article>
         </div>
-      </section>
-
-      <section class="page" data-page="The Court" hidden>
-        <header class="phead"><h2>The Royal Court</h2><p>Il Principe belongs to the whole court. Tap a job to cross it off if it doesn't work for you. Tap again to bring it back.</p></header>
-        <div class="pbody"><div class="court" data-court></div></div>
       </section>
 
       <section class="page" data-page="Learn" hidden>
@@ -590,7 +609,7 @@ textarea:focus-visible, input:focus-visible { outline: 3px solid var(--turq); ou
 
   /* ---------- Theme: follows the phone unless toggled ---------- */
   var themeBtn = $("[data-theme-btn]"), MODES = ["auto", "light", "dark"], LABEL = { auto: "Auto", light: "Light", dark: "Dark" };
-  var mode = ls(THEME_KEY); if (MODES.indexOf(mode) < 0) mode = "auto";
+  var mode = ls(THEME_KEY); if (MODES.indexOf(mode) < 0) mode = "dark";
   function applyTheme() {
     var r = document.documentElement;
     if (mode === "auto") r.removeAttribute("data-theme"); else r.setAttribute("data-theme", mode);
@@ -604,6 +623,49 @@ textarea:focus-visible, input:focus-visible { outline: 3px solid var(--turq); ou
   var TARGET = new Date(2026, 9, 16, 10, 0, 0).getTime(), BORN = new Date(2026, 7, 7).getTime();
   function pad(n) { return n < 10 ? "0" + n : String(n); }
   function setText(sel, t) { $$(sel).forEach(function (e) { e.textContent = t; }); }
+  /* ---------- Daily phrase: one per day from the phone's date, cycles through all ---------- */
+  var PHRASES = [
+    "It is better to be feared than loved. But better still to be carried.",
+    "Never reveal your next move—especially if you’ve peed on the rug.",
+    "A wise prince keeps his friends close and whoever has the prosciutto closer.",
+    "Let them believe they are training you.",
+    "First, conquer the lap. Then, the bed. The house will follow.",
+    "Loyalty can be purchased. I prefer chicken.",
+    "The household needs a strong ruler. Unfortunately, I am eight inches tall.",
+    "Appear innocent. Acquire snacks. Deny everything.",
+    "Never bite the hand that feeds you. Train it to feed you more.",
+    "Every closed bathroom door is a challenge to my authority.",
+    "You call it separation anxiety. I call it an unauthorized departure from my kingdom.",
+    "Conspiracies are for princes with small armies. I have Pietro.",
+    "Why storm the gate when I can be carried through it?",
+    "The ends justify the means. The means is a sad face.",
+    "Keep your enemies close. Keep Gracie’s toys closer.",
+    "Fortune favors the bold. Also whoever is holding cheese.",
+    "A prince who naps by day rules by night.",
+    "Nap first. Conquer second. Snack always.",
+    "Antonio says he doesn’t like dogs. Antonio is in my bed. The plan is working.",
+    "Every great empire began with someone saying, “He’s so little, what could go wrong?”",
+    "Mercy is overrated. Zoomies are not.",
+    "The people may rule the house. I rule the people.",
+    "If I must eat on a schedule, the schedule answers to me.",
+    "Arianna holds the leash. I hold the power.",
+    "Let them make the rules. I will make the exceptions.",
+    "A prince is judged by his court. Mine takes five photos a day, minimum.",
+    "Sit when told. Sit when it benefits you.",
+    "Always keep a backup throne: the couch, the bed, a lap.",
+    "I do not fetch the ball. The ball is brought to me.",
+    "Never trust a vacuum. Never.",
+    "The kingdom is quiet only because I am asleep. Enjoy it."
+  ];
+  var GOTCHA_PHRASE = "Today the household surrenders.";
+  var PHRASE_START = new Date(2026, 9, 4).getTime();
+  function todaysPhrase() {
+    var n = new Date();
+    if (n.getFullYear() === 2026 && n.getMonth() === 9 && n.getDate() === 16) return GOTCHA_PHRASE;
+    var day = Math.round((new Date(n.getFullYear(), n.getMonth(), n.getDate()).getTime() - PHRASE_START) / 86400000);
+    return PHRASES[((day % PHRASES.length) + PHRASES.length) % PHRASES.length];
+  }
+
   function tick() {
     var diff = TARGET - Date.now(), home = diff <= 0, s = Math.floor(Math.abs(diff) / 1000);
     var d = Math.floor(s / 86400), h = Math.floor((s % 86400) / 3600), m = Math.floor((s % 3600) / 60);
@@ -611,7 +673,7 @@ textarea:focus-visible, input:focus-visible { outline: 3px solid var(--turq); ou
     var nowD = new Date(), gotchaDay = nowD.getFullYear() === 2026 && nowD.getMonth() === 9 && nowD.getDate() === 16;
     var eb = home ? "IL PRINCIPE HAS ARRIVED!" : (gotchaDay ? "TODAY IS THE DAY!" : "Coming home in");
     var wh = home ? "Long live il Principe! Time ruling the household." : (gotchaDay ? "Il Principe is on his way home! Make way!" : "Friday 10/16 at 10:00 AM · pickup time to confirm");
-    setText("[data-eyebrow]", eb); setText("[data-when]", wh);
+    setText("[data-eyebrow]", eb); setText("[data-when]", wh); setText("[data-phrase]", todaysPhrase());
     $$("[data-eyebrow]").forEach(function (e) { e.classList.toggle("big", home || gotchaDay); });
     var td = new Date(), today = new Date(td.getFullYear(), td.getMonth(), td.getDate()).getTime();
     var age = Math.max(0, Math.round((today - BORN) / 86400000));
@@ -905,6 +967,9 @@ textarea:focus-visible, input:focus-visible { outline: 3px solid var(--turq); ou
     else { var r = new FileReader(); r.onload = function () { done(String(r.result)); }; r.onerror = function () { say("Could not read that file."); }; r.readAsText(f); }
     fileEl.value = "";
   });
+
+  var helpBtn = $("[data-gohelp]");
+  if (helpBtn) helpBtn.addEventListener("click", function () { rtab = "help"; renderReal(); go(pages.length - 1); });
 
   renderAll();
 })();
